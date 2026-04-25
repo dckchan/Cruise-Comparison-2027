@@ -1,0 +1,996 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>2027 European Cruise Comparison — Family of Six</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700;800&family=DM+Sans:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+:root {
+  --navy: #0a1628;
+  --deep-blue: #0f2342;
+  --ocean: #1a5276;
+  --teal: #148f77;
+  --gold: #d4a843;
+  --gold-light: #f0d78c;
+  --sand: #f5f0e8;
+  --white: #ffffff;
+  --gray-100: #f8f7f5;
+  --gray-200: #e8e5df;
+  --gray-400: #9e9a92;
+  --gray-600: #5a5650;
+  --coral: #e07850;
+  --royal-blue: #2c5aa0;
+  --celebrity-navy: #1b2a4a;
+  --princess-blue: #003b6f;
+  --rc-blue: #00205b;
+  --gradient-ocean: linear-gradient(135deg, #0a1628 0%, #1a5276 50%, #148f77 100%);
+  --gradient-gold: linear-gradient(135deg, #d4a843 0%, #f0d78c 100%);
+}
+
+* { margin: 0; padding: 0; box-sizing: border-box; }
+
+body {
+  font-family: 'DM Sans', sans-serif;
+  background: var(--sand);
+  color: var(--navy);
+  line-height: 1.6;
+  overflow-x: hidden;
+}
+
+/* ===== HERO ===== */
+.hero {
+  background: var(--gradient-ocean);
+  min-height: 60vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  padding: 80px 24px 60px;
+  position: relative;
+  overflow: hidden;
+}
+.hero::before {
+  content: '';
+  position: absolute;
+  top: -50%;
+  left: -50%;
+  width: 200%;
+  height: 200%;
+  background: radial-gradient(ellipse at 30% 50%, rgba(212,168,67,0.08) 0%, transparent 60%),
+              radial-gradient(ellipse at 70% 30%, rgba(20,143,119,0.12) 0%, transparent 50%);
+  animation: shimmer 12s ease-in-out infinite alternate;
+}
+@keyframes shimmer {
+  0% { transform: translate(0,0) rotate(0deg); }
+  100% { transform: translate(-3%,2%) rotate(2deg); }
+}
+.hero-label {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.75rem;
+  letter-spacing: 4px;
+  text-transform: uppercase;
+  color: var(--gold);
+  margin-bottom: 20px;
+  position: relative;
+  z-index: 1;
+}
+.hero h1 {
+  font-family: 'Playfair Display', serif;
+  font-size: clamp(2.2rem, 5vw, 4rem);
+  font-weight: 800;
+  color: var(--white);
+  line-height: 1.15;
+  max-width: 800px;
+  position: relative;
+  z-index: 1;
+}
+.hero h1 em {
+  font-style: italic;
+  color: var(--gold-light);
+}
+.hero-sub {
+  font-size: 1.1rem;
+  color: rgba(255,255,255,0.7);
+  margin-top: 20px;
+  max-width: 600px;
+  position: relative;
+  z-index: 1;
+  font-weight: 300;
+}
+.hero-badges {
+  display: flex;
+  gap: 12px;
+  flex-wrap: wrap;
+  justify-content: center;
+  margin-top: 30px;
+  position: relative;
+  z-index: 1;
+}
+.badge {
+  background: rgba(255,255,255,0.1);
+  border: 1px solid rgba(255,255,255,0.15);
+  padding: 8px 18px;
+  border-radius: 100px;
+  font-size: 0.8rem;
+  color: rgba(255,255,255,0.85);
+  backdrop-filter: blur(10px);
+  font-weight: 500;
+}
+
+/* ===== SECTIONS ===== */
+.section {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 60px 24px;
+}
+.section-label {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.7rem;
+  letter-spacing: 4px;
+  text-transform: uppercase;
+  color: var(--teal);
+  margin-bottom: 10px;
+}
+.section h2 {
+  font-family: 'Playfair Display', serif;
+  font-size: clamp(1.8rem, 3.5vw, 2.6rem);
+  font-weight: 700;
+  color: var(--navy);
+  margin-bottom: 16px;
+}
+.section-intro {
+  font-size: 1.05rem;
+  color: var(--gray-600);
+  max-width: 700px;
+  margin-bottom: 40px;
+  line-height: 1.7;
+}
+
+/* ===== SHIP CARDS ===== */
+.ships-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(340px, 1fr));
+  gap: 28px;
+  margin-top: 36px;
+}
+.ship-card {
+  background: var(--white);
+  border-radius: 18px;
+  overflow: hidden;
+  box-shadow: 0 4px 24px rgba(10,22,40,0.06);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+.ship-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 12px 40px rgba(10,22,40,0.12);
+}
+.ship-header {
+  padding: 28px 28px 0;
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+}
+.ship-brand {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.65rem;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  padding: 4px 10px;
+  border-radius: 4px;
+  font-weight: 500;
+}
+.brand-rc { background: #e8edf5; color: var(--rc-blue); }
+.brand-celebrity { background: #e8ecf3; color: var(--celebrity-navy); }
+.brand-princess { background: #e6edf5; color: var(--princess-blue); }
+.ship-year {
+  font-size: 0.75rem;
+  color: var(--gray-400);
+  font-weight: 500;
+}
+.ship-body {
+  padding: 20px 28px 28px;
+}
+.ship-name {
+  font-family: 'Playfair Display', serif;
+  font-size: 1.6rem;
+  font-weight: 700;
+  margin-bottom: 4px;
+}
+.ship-class {
+  font-size: 0.85rem;
+  color: var(--teal);
+  font-weight: 600;
+  margin-bottom: 14px;
+}
+.ship-stats {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 10px;
+  margin-bottom: 18px;
+}
+.stat {
+  background: var(--gray-100);
+  padding: 10px 14px;
+  border-radius: 10px;
+}
+.stat-label {
+  font-size: 0.7rem;
+  color: var(--gray-400);
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  margin-bottom: 2px;
+}
+.stat-value {
+  font-size: 1rem;
+  font-weight: 700;
+  color: var(--navy);
+}
+.ship-highlights {
+  list-style: none;
+  margin-top: 14px;
+}
+.ship-highlights li {
+  font-size: 0.88rem;
+  color: var(--gray-600);
+  padding: 5px 0;
+  padding-left: 20px;
+  position: relative;
+}
+.ship-highlights li::before {
+  content: '◆';
+  position: absolute;
+  left: 0;
+  color: var(--gold);
+  font-size: 0.55rem;
+  top: 8px;
+}
+
+/* ===== COMPARISON TABLE ===== */
+.table-wrapper {
+  overflow-x: auto;
+  margin-top: 36px;
+  border-radius: 16px;
+  box-shadow: 0 4px 24px rgba(10,22,40,0.06);
+}
+table {
+  width: 100%;
+  border-collapse: collapse;
+  background: var(--white);
+  min-width: 900px;
+}
+thead th {
+  background: var(--deep-blue);
+  color: var(--white);
+  padding: 18px 20px;
+  text-align: left;
+  font-weight: 600;
+  font-size: 0.85rem;
+  letter-spacing: 0.5px;
+  white-space: nowrap;
+}
+thead th:first-child { border-radius: 16px 0 0 0; }
+thead th:last-child { border-radius: 0 16px 0 0; }
+tbody td {
+  padding: 16px 20px;
+  border-bottom: 1px solid var(--gray-200);
+  font-size: 0.9rem;
+  vertical-align: top;
+}
+tbody tr:last-child td { border-bottom: none; }
+tbody tr:hover { background: rgba(20,143,119,0.03); }
+.price-cell {
+  font-weight: 700;
+  color: var(--ocean);
+  font-size: 1.05rem;
+}
+.highlight-row td {
+  background: rgba(212,168,67,0.06);
+}
+.tag {
+  display: inline-block;
+  padding: 3px 10px;
+  border-radius: 6px;
+  font-size: 0.72rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+.tag-best { background: #ddf5ee; color: #0e7a5a; }
+.tag-newest { background: #fff3d6; color: #8a6d1b; }
+.tag-value { background: #e3edfa; color: #1a4a8a; }
+
+/* ===== ITINERARY SECTION ===== */
+.itinerary-block {
+  background: var(--white);
+  border-radius: 18px;
+  padding: 36px;
+  margin-top: 32px;
+  box-shadow: 0 4px 24px rgba(10,22,40,0.06);
+}
+.itinerary-header {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  margin-bottom: 24px;
+  flex-wrap: wrap;
+}
+.itinerary-ship {
+  font-family: 'Playfair Display', serif;
+  font-size: 1.5rem;
+  font-weight: 700;
+}
+.itin-tag {
+  background: var(--gradient-gold);
+  color: var(--navy);
+  padding: 5px 14px;
+  border-radius: 8px;
+  font-size: 0.75rem;
+  font-weight: 700;
+  letter-spacing: 0.5px;
+}
+.day-grid {
+  display: grid;
+  gap: 0;
+  margin-top: 8px;
+}
+.day-row {
+  display: grid;
+  grid-template-columns: 70px 1fr 1fr;
+  gap: 0;
+  border-bottom: 1px solid var(--gray-200);
+  align-items: stretch;
+}
+.day-row:last-child { border-bottom: none; }
+.day-num {
+  background: var(--deep-blue);
+  color: var(--gold-light);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: 'Playfair Display', serif;
+  font-size: 1.1rem;
+  font-weight: 700;
+  padding: 14px 8px;
+}
+.day-port {
+  padding: 14px 18px;
+  font-weight: 600;
+  font-size: 0.95rem;
+  display: flex;
+  align-items: center;
+}
+.day-detail {
+  padding: 14px 18px;
+  font-size: 0.88rem;
+  color: var(--gray-600);
+  display: flex;
+  align-items: center;
+}
+.day-row.sea-day .day-num { background: var(--ocean); }
+.day-row.sea-day .day-port { color: var(--ocean); font-style: italic; }
+
+/* ===== COST BREAKDOWN ===== */
+.cost-block {
+  background: var(--gradient-ocean);
+  border-radius: 18px;
+  padding: 40px 36px;
+  margin-top: 32px;
+  color: var(--white);
+}
+.cost-block h3 {
+  font-family: 'Playfair Display', serif;
+  font-size: 1.6rem;
+  margin-bottom: 24px;
+  color: var(--gold-light);
+}
+.cost-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  gap: 20px;
+}
+.cost-item {
+  background: rgba(255,255,255,0.07);
+  border: 1px solid rgba(255,255,255,0.1);
+  border-radius: 14px;
+  padding: 22px;
+  backdrop-filter: blur(10px);
+}
+.cost-item-label {
+  font-size: 0.78rem;
+  color: rgba(255,255,255,0.6);
+  text-transform: uppercase;
+  letter-spacing: 1.5px;
+  margin-bottom: 6px;
+}
+.cost-item-value {
+  font-family: 'Playfair Display', serif;
+  font-size: 1.8rem;
+  font-weight: 700;
+  color: var(--gold-light);
+}
+.cost-item-note {
+  font-size: 0.82rem;
+  color: rgba(255,255,255,0.55);
+  margin-top: 4px;
+}
+.cost-total {
+  margin-top: 28px;
+  padding-top: 24px;
+  border-top: 1px solid rgba(255,255,255,0.15);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 16px;
+}
+.cost-total-label {
+  font-size: 1.1rem;
+  font-weight: 600;
+}
+.cost-total-value {
+  font-family: 'Playfair Display', serif;
+  font-size: 2.4rem;
+  font-weight: 800;
+  color: var(--gold-light);
+}
+
+/* ===== RECOMMENDATION ===== */
+.recommendation {
+  background: var(--white);
+  border: 2px solid var(--gold);
+  border-radius: 18px;
+  padding: 36px;
+  margin-top: 40px;
+  position: relative;
+}
+.recommendation::before {
+  content: '★ TOP PICK';
+  position: absolute;
+  top: -13px;
+  left: 30px;
+  background: var(--gradient-gold);
+  color: var(--navy);
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.7rem;
+  font-weight: 700;
+  letter-spacing: 2px;
+  padding: 4px 16px;
+  border-radius: 6px;
+}
+.rec-title {
+  font-family: 'Playfair Display', serif;
+  font-size: 1.4rem;
+  font-weight: 700;
+  margin-bottom: 12px;
+}
+.rec-body {
+  color: var(--gray-600);
+  font-size: 0.95rem;
+  line-height: 1.75;
+}
+
+/* ===== NOTES ===== */
+.notes {
+  margin-top: 40px;
+  padding: 28px;
+  background: var(--gray-100);
+  border-radius: 14px;
+  border-left: 4px solid var(--teal);
+}
+.notes h4 {
+  font-size: 0.9rem;
+  font-weight: 700;
+  margin-bottom: 10px;
+  color: var(--ocean);
+}
+.notes p {
+  font-size: 0.82rem;
+  color: var(--gray-600);
+  line-height: 1.7;
+}
+
+/* ===== FOOTER ===== */
+.footer {
+  text-align: center;
+  padding: 40px 24px;
+  color: var(--gray-400);
+  font-size: 0.8rem;
+}
+
+@media (max-width: 768px) {
+  .ships-grid { grid-template-columns: 1fr; }
+  .day-row { grid-template-columns: 50px 1fr; }
+  .day-detail { display: none; }
+  .itinerary-block, .cost-block { padding: 24px 18px; }
+}
+</style>
+</head>
+<body>
+
+<!-- ═══════════ HERO ═══════════ -->
+<div class="hero">
+  <div class="hero-label">2027 European Cruise Season</div>
+  <h1>The Definitive Cruise Comparison for Your <em>Family of Six</em></h1>
+  <p class="hero-sub">Royal Caribbean · Celebrity Cruises · Princess — featuring the newest ships sailing Italy, Greece &amp; Northern Europe from April through September 2027, with travel logistics from Vancouver.</p>
+  <div class="hero-badges">
+    <span class="badge">🚢 3 Cruise Lines</span>
+    <span class="badge">🗺️ 6 Top Itineraries</span>
+    <span class="badge">👨‍👩‍👧‍👦 Family of 6</span>
+    <span class="badge">✈️ From Vancouver</span>
+  </div>
+</div>
+
+<!-- ═══════════ SHIPS OVERVIEW ═══════════ -->
+<div class="section">
+  <div class="section-label">The Fleet</div>
+  <h2>Newest Ships Sailing Europe in 2027</h2>
+  <p class="section-intro">Each cruise line is deploying its most modern vessels for the 2027 Mediterranean and Northern European season. Here's what you need to know about the flagship ships.</p>
+
+  <div class="ships-grid">
+    <!-- RC: Legend of the Seas -->
+    <div class="ship-card">
+      <div class="ship-header">
+        <span class="ship-brand brand-rc">Royal Caribbean</span>
+        <span class="ship-year">Launched 2026</span>
+      </div>
+      <div class="ship-body">
+        <div class="ship-name">Legend of the Seas</div>
+        <div class="ship-class">Icon Class — 3rd in series</div>
+        <div class="ship-stats">
+          <div class="stat"><div class="stat-label">Gross Tons</div><div class="stat-value">250,800 GT</div></div>
+          <div class="stat"><div class="stat-label">Passengers</div><div class="stat-value">5,610 – 7,600</div></div>
+          <div class="stat"><div class="stat-label">Decks</div><div class="stat-value">20</div></div>
+          <div class="stat"><div class="stat-label">Cabins</div><div class="stat-value">2,805</div></div>
+        </div>
+        <ul class="ship-highlights">
+          <li>6 massive waterslides, 7 pools, Category 6 water park</li>
+          <li>40+ dining &amp; bar venues, Royal Promenade with ice rink</li>
+          <li>LNG-powered, Royal Bay Pool — one of the largest at sea</li>
+          <li>Ultimate Family Townhouse (3-deck family suite)</li>
+          <li>Surfside Neighborhood designed specifically for families</li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- Celebrity Xcel -->
+    <div class="ship-card">
+      <div class="ship-header">
+        <span class="ship-brand brand-celebrity">Celebrity Cruises</span>
+        <span class="ship-year">Launched 2025</span>
+      </div>
+      <div class="ship-body">
+        <div class="ship-name">Celebrity Xcel</div>
+        <div class="ship-class">Edge Series — 5th in series</div>
+        <div class="ship-stats">
+          <div class="stat"><div class="stat-label">Length</div><div class="stat-value">1,073 ft</div></div>
+          <div class="stat"><div class="stat-label">Passengers</div><div class="stat-value">3,260</div></div>
+          <div class="stat"><div class="stat-label">Decks</div><div class="stat-value">17</div></div>
+          <div class="stat"><div class="stat-label">Cabins</div><div class="stat-value">1,646</div></div>
+        </div>
+        <ul class="ship-highlights">
+          <li>Magic Carpet — cantilevered platform, 13 stories above sea</li>
+          <li>The Bazaar — 3-deck immersive cultural experience</li>
+          <li>32 dining &amp; beverage venues, 4 main dining rooms</li>
+          <li>Rooftop Garden, Celebrity Pool Club, Hydra Spa</li>
+          <li>Premium-refined experience; more intimate than mega-ships</li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- Princess: Sun Princess -->
+    <div class="ship-card">
+      <div class="ship-header">
+        <span class="ship-brand brand-princess">Princess Cruises</span>
+        <span class="ship-year">Launched 2024</span>
+      </div>
+      <div class="ship-body">
+        <div class="ship-name">Sun Princess</div>
+        <div class="ship-class">Sphere Class — 1st in series</div>
+        <div class="ship-stats">
+          <div class="stat"><div class="stat-label">Gross Tons</div><div class="stat-value">178,000 GT</div></div>
+          <div class="stat"><div class="stat-label">Passengers</div><div class="stat-value">4,300</div></div>
+          <div class="stat"><div class="stat-label">Decks</div><div class="stat-value">21</div></div>
+          <div class="stat"><div class="stat-label">Homeport</div><div class="stat-value">Barcelona / Athens</div></div>
+        </div>
+        <ul class="ship-highlights">
+          <li>Condé Nast Traveler's Mega Ship of the Year</li>
+          <li>Dual-fuel LNG-powered, first of its kind for Princess</li>
+          <li>Specialty dining: Crown Grill, Sabatini's, Makoto Ocean</li>
+          <li>The Dome — glass-domed multi-use entertainment venue</li>
+          <li>8-month Mediterranean deployment (Apr–Nov 2027)</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ═══════════ COMPARISON TABLE ═══════════ -->
+<div class="section">
+  <div class="section-label">Side-by-Side</div>
+  <h2>Cruise Comparison — Interior Cabin Pricing</h2>
+  <p class="section-intro">All prices are per person, double occupancy, in USD, for interior staterooms. Taxes and port fees included where noted. Prices reflect summer 2027 sailings and are subject to change.</p>
+
+  <div class="table-wrapper">
+    <table>
+      <thead>
+        <tr>
+          <th>Cruise Line / Ship</th>
+          <th>Itinerary</th>
+          <th>Duration</th>
+          <th>Departure</th>
+          <th>Ports Visited</th>
+          <th>Interior pp</th>
+          <th>Notes</th>
+        </tr>
+      </thead>
+      <tbody>
+        <!-- RC Legend -->
+        <tr class="highlight-row">
+          <td><strong>Royal Caribbean</strong><br>Legend of the Seas</td>
+          <td>Western Mediterranean</td>
+          <td>7 nights</td>
+          <td>Barcelona<br>Jul–Oct 2027</td>
+          <td>Palma, Marseille, Florence, Rome, Naples</td>
+          <td class="price-cell">~$2,367 – $2,916</td>
+          <td><span class="tag tag-newest">Newest</span> Icon Class; highest demand = premium pricing</td>
+        </tr>
+        <!-- RC Rhapsody -->
+        <tr>
+          <td><strong>Royal Caribbean</strong><br>Rhapsody of the Seas</td>
+          <td>Greek Isles</td>
+          <td>7 nights</td>
+          <td>Athens (Piraeus)<br>May–Aug 2027</td>
+          <td>Mykonos, Santorini, Rhodes, Crete, Kusadasi</td>
+          <td class="price-cell">~$886 – $978</td>
+          <td><span class="tag tag-value">Best Value</span> Classic ship; great Greek itinerary</td>
+        </tr>
+        <!-- RC Odyssey -->
+        <tr>
+          <td><strong>Royal Caribbean</strong><br>Odyssey of the Seas</td>
+          <td>Greek Isles + Italy</td>
+          <td>7 nights</td>
+          <td>Rome / Barcelona<br>May–Sep 2027</td>
+          <td>Santorini, Mykonos, Athens, Naples</td>
+          <td class="price-cell">~$1,290 – $1,840</td>
+          <td>Quantum Class; Royal Beach Club Santorini access</td>
+        </tr>
+        <!-- Celebrity Xcel Italy -->
+        <tr class="highlight-row">
+          <td><strong>Celebrity Cruises</strong><br>Celebrity Xcel</td>
+          <td>Italy, France &amp; Riviera</td>
+          <td>7 nights</td>
+          <td>Barcelona<br>May–Sep 2027</td>
+          <td>Villefranche, La Spezia, Portofino, Rome, Naples</td>
+          <td class="price-cell">~$1,538 – $1,998</td>
+          <td><span class="tag tag-newest">Newest</span> Edge Series; elevated dining &amp; design</td>
+        </tr>
+        <!-- Celebrity Xcel Greece -->
+        <tr>
+          <td><strong>Celebrity Cruises</strong><br>Celebrity Xcel</td>
+          <td>Greece, Malta &amp; Turkey</td>
+          <td>8 nights</td>
+          <td>Barcelona / Athens<br>Jun–Sep 2027</td>
+          <td>Santorini, Mykonos, Rhodes, Ephesus, Valletta</td>
+          <td class="price-cell">~$1,655 – $1,812</td>
+          <td>Overnight stays in select ports; immersive experience</td>
+        </tr>
+        <!-- Celebrity Xcel 10-Night -->
+        <tr>
+          <td><strong>Celebrity Cruises</strong><br>Celebrity Xcel</td>
+          <td>Italy, Spain &amp; French Riviera</td>
+          <td>10 nights</td>
+          <td>Barcelona<br>Summer 2027</td>
+          <td>Naples, Messina, Rome, Portofino, La Spezia, Villefranche</td>
+          <td class="price-cell">~$2,100 – $2,800</td>
+          <td>Extended voyage; deeper Italian immersion</td>
+        </tr>
+        <!-- Princess Sun Princess 7-night -->
+        <tr class="highlight-row">
+          <td><strong>Princess Cruises</strong><br>Sun Princess</td>
+          <td>Med with Greece &amp; Italy</td>
+          <td>7 nights</td>
+          <td>Athens / Barcelona<br>Apr–Sep 2027</td>
+          <td>Santorini, Mykonos, Corfu, Messina, Naples</td>
+          <td class="price-cell">~$1,100 – $1,450</td>
+          <td><span class="tag tag-value">Value Pick</span> Sphere Class; great price/quality ratio</td>
+        </tr>
+        <!-- Princess Sun Princess 14-night -->
+        <tr>
+          <td><strong>Princess Cruises</strong><br>Sun Princess</td>
+          <td>Grand Mediterranean</td>
+          <td>14 nights</td>
+          <td>Barcelona<br>Apr–Aug 2027</td>
+          <td>Palma, Marseille, Corsica, Genoa, Rome, Naples, Crete, Kusadasi, Mykonos, Athens</td>
+          <td class="price-cell">~$2,158 – $2,309</td>
+          <td><span class="tag tag-best">Best Overall</span> Italy + Greece in one sailing</td>
+        </tr>
+        <!-- Princess 19-night -->
+        <tr>
+          <td><strong>Princess Cruises</strong><br>Sun Princess</td>
+          <td>Grand Mediterranean Extended</td>
+          <td>19 nights</td>
+          <td>Athens (Piraeus)<br>Jun 2027</td>
+          <td>Santorini, Corfu, Messina, Barcelona, Marseille, Genoa, Rome, Naples, Crete, Kusadasi, Mykonos</td>
+          <td class="price-cell">~$2,309</td>
+          <td>Comprehensive; visits both Eastern &amp; Western Med</td>
+        </tr>
+        <!-- RC Northern Europe -->
+        <tr>
+          <td><strong>Royal Caribbean</strong><br>Freedom of the Seas</td>
+          <td>Norwegian Fjords</td>
+          <td>7 nights</td>
+          <td>Southampton<br>Summer 2027</td>
+          <td>Bergen, Geiranger, Alesund, Stavanger</td>
+          <td class="price-cell">~$950 – $1,300</td>
+          <td>Northern Europe option; Freedom Class</td>
+        </tr>
+        <!-- Princess Northern Europe -->
+        <tr>
+          <td><strong>Princess Cruises</strong><br>Majestic Princess</td>
+          <td>Iceland &amp; Norway</td>
+          <td>14 nights</td>
+          <td>Southampton<br>Summer 2027</td>
+          <td>Reykjavik, Akureyri, Bergen, Geiranger, and more</td>
+          <td class="price-cell">~$2,200 – $2,800</td>
+          <td>Northern Lights season sailings available</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+
+<!-- ═══════════ RECOMMENDED ITINERARY ═══════════ -->
+<div class="section">
+  <div class="section-label">Featured Itinerary</div>
+  <h2>Recommended: Sun Princess 14-Night Grand Mediterranean</h2>
+  <p class="section-intro">This itinerary offers the best combination of Italy, Greece, and Turkey in a single sailing — ideal for a family of six wanting maximum destination variety at a competitive price point.</p>
+
+  <div class="itinerary-block">
+    <div class="itinerary-header">
+      <div class="itinerary-ship">Sun Princess — 14 Nights</div>
+      <span class="itin-tag">Departing Aug 15, 2027</span>
+      <span class="itin-tag">From Barcelona</span>
+    </div>
+
+    <div class="day-grid">
+      <div class="day-row">
+        <div class="day-num">1</div>
+        <div class="day-port">Barcelona, Spain</div>
+        <div class="day-detail">Embarkation — departs 5:00 PM</div>
+      </div>
+      <div class="day-row sea-day">
+        <div class="day-num">2</div>
+        <div class="day-port">At Sea</div>
+        <div class="day-detail">Relax &amp; explore the ship</div>
+      </div>
+      <div class="day-row">
+        <div class="day-num">3</div>
+        <div class="day-port">Naples, Italy</div>
+        <div class="day-detail">Pompeii, Amalfi Coast, pizza birthplace</div>
+      </div>
+      <div class="day-row">
+        <div class="day-num">4</div>
+        <div class="day-port">Messina, Sicily</div>
+        <div class="day-detail">Mount Etna, Taormina Greek Theatre</div>
+      </div>
+      <div class="day-row">
+        <div class="day-num">5</div>
+        <div class="day-port">Chania, Crete, Greece</div>
+        <div class="day-detail">Venetian harbour, Samariá Gorge</div>
+      </div>
+      <div class="day-row">
+        <div class="day-num">6</div>
+        <div class="day-port">Kusadasi, Turkey</div>
+        <div class="day-detail">Ancient Ephesus, House of Virgin Mary</div>
+      </div>
+      <div class="day-row">
+        <div class="day-num">7</div>
+        <div class="day-port">Mykonos, Greece</div>
+        <div class="day-detail">Windmills, Little Venice, beaches</div>
+      </div>
+      <div class="day-row">
+        <div class="day-num">8</div>
+        <div class="day-port">Piraeus (Athens), Greece</div>
+        <div class="day-detail">Acropolis, Parthenon, Plaka district</div>
+      </div>
+      <div class="day-row">
+        <div class="day-num">9</div>
+        <div class="day-port">Santorini, Greece</div>
+        <div class="day-detail">Oia sunset, caldera views, black sand beaches</div>
+      </div>
+      <div class="day-row">
+        <div class="day-num">10</div>
+        <div class="day-port">Bar, Montenegro</div>
+        <div class="day-detail">Old Town, Adriatic coastline</div>
+      </div>
+      <div class="day-row">
+        <div class="day-num">11</div>
+        <div class="day-port">Corfu, Greece</div>
+        <div class="day-detail">UNESCO Old Town, Achilleion Palace</div>
+      </div>
+      <div class="day-row sea-day">
+        <div class="day-num">12</div>
+        <div class="day-port">At Sea</div>
+        <div class="day-detail">Crossing back to western Med</div>
+      </div>
+      <div class="day-row">
+        <div class="day-num">13</div>
+        <div class="day-port">Civitavecchia (Rome), Italy</div>
+        <div class="day-detail">Vatican, Colosseum, Trevi Fountain</div>
+      </div>
+      <div class="day-row">
+        <div class="day-num">14</div>
+        <div class="day-port">La Spezia, Italy</div>
+        <div class="day-detail">Cinque Terre, Portofino day trips</div>
+      </div>
+      <div class="day-row">
+        <div class="day-num">15</div>
+        <div class="day-port">Barcelona, Spain</div>
+        <div class="day-detail">Disembarkation — arrive 6:00 AM</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ═══════════ TOTAL COST BREAKDOWN ═══════════ -->
+  <div class="cost-block">
+    <h3>Estimated Total Cost — Family of 6</h3>
+    <p style="font-size:0.88rem; color:rgba(255,255,255,0.6); margin-bottom:24px;">Based on Sun Princess 14-night Grand Mediterranean, Aug 15, 2027, from Barcelona. Interior cabin pricing.</p>
+
+    <div class="cost-grid">
+      <div class="cost-item">
+        <div class="cost-item-label">Cruise Fare (Interior)</div>
+        <div class="cost-item-value">$12,948</div>
+        <div class="cost-item-note">~$2,158 pp × 6 guests (3 cabins, double occupancy). Taxes &amp; port fees included.</div>
+      </div>
+      <div class="cost-item">
+        <div class="cost-item-label">Flights: Vancouver → Barcelona RT</div>
+        <div class="cost-item-value">$9,000</div>
+        <div class="cost-item-note">~$1,500 pp round trip (summer peak). Air Canada / Lufthansa / KLM via connections.</div>
+      </div>
+      <div class="cost-item">
+        <div class="cost-item-label">Pre/Post Hotel (2 nights)</div>
+        <div class="cost-item-value">$900</div>
+        <div class="cost-item-note">~$150/night × 2 nights × 3 rooms. Budget hotel near cruise port.</div>
+      </div>
+      <div class="cost-item">
+        <div class="cost-item-label">Shore Excursions</div>
+        <div class="cost-item-value">$3,600</div>
+        <div class="cost-item-note">~$100 pp × 6 excursions (Pompeii, Ephesus, Athens, Santorini, Rome, Cinque Terre)</div>
+      </div>
+      <div class="cost-item">
+        <div class="cost-item-label">Onboard Gratuities</div>
+        <div class="cost-item-value">$1,470</div>
+        <div class="cost-item-note">~$17.50 pp/day × 14 days × 6 guests</div>
+      </div>
+      <div class="cost-item">
+        <div class="cost-item-label">Onboard Spending</div>
+        <div class="cost-item-value">$2,000</div>
+        <div class="cost-item-note">Specialty dining, drinks, spa, Wi-Fi, photos (estimate)</div>
+      </div>
+      <div class="cost-item">
+        <div class="cost-item-label">Travel Insurance</div>
+        <div class="cost-item-value">$1,200</div>
+        <div class="cost-item-note">~$200 pp comprehensive travel/medical coverage</div>
+      </div>
+      <div class="cost-item">
+        <div class="cost-item-label">Airport Transfers</div>
+        <div class="cost-item-value">$500</div>
+        <div class="cost-item-note">Private van: airport ↔ hotel ↔ cruise port, both ends</div>
+      </div>
+    </div>
+
+    <div class="cost-total">
+      <div class="cost-total-label">Estimated Grand Total (Family of 6)</div>
+      <div class="cost-total-value">~$31,618 USD</div>
+    </div>
+    <p style="font-size:0.78rem; color:rgba(255,255,255,0.45); margin-top:10px;">≈ $5,270 per person &nbsp;|&nbsp; ≈ $376 per person per day (all-inclusive estimate)</p>
+  </div>
+
+  <!-- ═══════════ ALTERNATIVE COST SCENARIOS ═══════════ -->
+  <div class="itinerary-block" style="margin-top:32px;">
+    <h3 style="font-family:'Playfair Display',serif; font-size:1.3rem; margin-bottom:20px;">Alternative Cruise Cost Scenarios (Family of 6 · Interior Cabin)</h3>
+    <div class="table-wrapper" style="box-shadow:none;">
+      <table style="min-width:700px;">
+        <thead>
+          <tr>
+            <th>Option</th>
+            <th>Cruise Fare (6 pax)</th>
+            <th>+ Flights</th>
+            <th>+ Extras</th>
+            <th>Est. Total</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><strong>RC Legend of the Seas</strong><br>7N W. Med from Barcelona</td>
+            <td class="price-cell">$15,000 – $17,500</td>
+            <td>$9,000</td>
+            <td>$4,700</td>
+            <td class="price-cell">$28,700 – $31,200</td>
+          </tr>
+          <tr>
+            <td><strong>RC Rhapsody</strong><br>7N Greek Isles from Athens</td>
+            <td class="price-cell">$5,316 – $5,868</td>
+            <td>$9,600</td>
+            <td>$4,200</td>
+            <td class="price-cell">$19,116 – $19,668</td>
+          </tr>
+          <tr class="highlight-row">
+            <td><strong>Celebrity Xcel</strong><br>7N Italy &amp; Riviera from Barcelona</td>
+            <td class="price-cell">$9,228 – $11,988</td>
+            <td>$9,000</td>
+            <td>$4,500</td>
+            <td class="price-cell">$22,728 – $25,488</td>
+          </tr>
+          <tr>
+            <td><strong>Celebrity Xcel</strong><br>8N Greece &amp; Turkey from Athens</td>
+            <td class="price-cell">$9,930 – $10,872</td>
+            <td>$9,600</td>
+            <td>$4,800</td>
+            <td class="price-cell">$24,330 – $25,272</td>
+          </tr>
+          <tr class="highlight-row">
+            <td><strong>Sun Princess</strong> ★ Recommended<br>14N Grand Med from Barcelona</td>
+            <td class="price-cell">$12,948 – $13,854</td>
+            <td>$9,000</td>
+            <td>$9,670</td>
+            <td class="price-cell">$31,618</td>
+          </tr>
+          <tr>
+            <td><strong>Sun Princess</strong><br>7N Greece &amp; Italy from Athens</td>
+            <td class="price-cell">$6,600 – $8,700</td>
+            <td>$9,600</td>
+            <td>$4,200</td>
+            <td class="price-cell">$20,400 – $22,500</td>
+          </tr>
+          <tr>
+            <td><strong>RC Freedom</strong><br>7N Norwegian Fjords from Southampton</td>
+            <td class="price-cell">$5,700 – $7,800</td>
+            <td>$8,400</td>
+            <td>$4,200</td>
+            <td class="price-cell">$18,300 – $20,400</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <!-- ═══════════ RECOMMENDATION ═══════════ -->
+  <div class="recommendation">
+    <div class="rec-title">Why the Sun Princess 14-Night Grand Mediterranean?</div>
+    <div class="rec-body">
+      For a family of six departing from Vancouver, this itinerary offers the strongest combination of value, destination variety, and ship quality. You'll visit both Italy and Greece in a single sailing — including bucket-list ports like Santorini, Athens, Rome, and Cinque Terre — aboard Princess's newest and most technologically advanced ship. At roughly $2,158 per person for the cruise fare (interior cabin), it's significantly less expensive per night than the Legend of the Seas while still offering a modern, feature-rich ship experience. The 14-night duration means fewer embarkation hassles relative to days at sea, and Princess's complimentary dining, MedallionClass technology, and connected-room options make it exceptionally family-friendly. If budget is the primary concern, the RC Rhapsody 7-night Greek Isles from Athens is the most affordable option at approximately $19,000–$20,000 total for all six travelers. For the most luxurious ship experience and you're willing to pay a premium, the Legend of the Seas offers Royal Caribbean's newest onboard features, though at a significantly higher cruise-fare cost for a shorter voyage.
+    </div>
+  </div>
+
+  <!-- ═══════════ GETTING THERE ═══════════ -->
+  <div class="itinerary-block" style="margin-top:32px;">
+    <h3 style="font-family:'Playfair Display',serif; font-size:1.3rem; margin-bottom:16px;">Getting There from Vancouver</h3>
+    <p style="color:var(--gray-600); font-size:0.92rem; line-height:1.8; margin-bottom:16px;">
+      None of these cruise lines depart from Vancouver for European itineraries — all Mediterranean and Northern Europe cruises embark from European ports (Barcelona, Athens, Rome, Southampton). You'll need to fly from Vancouver (YVR) to your embarkation city.
+    </p>
+    <p style="color:var(--gray-600); font-size:0.92rem; line-height:1.8; margin-bottom:16px;">
+      <strong>Estimated round-trip flights (summer 2027):</strong> Vancouver → Barcelona is approximately CAD $1,800–$2,200 per person (≈ USD $1,300–$1,600) via Air Canada, Lufthansa, KLM, or British Airways with one connection. Vancouver → Athens is slightly more at CAD $2,000–$2,500 (≈ USD $1,450–$1,800). Vancouver → London/Southampton averages CAD $1,500–$1,900 (≈ USD $1,100–$1,400).
+    </p>
+    <p style="color:var(--gray-600); font-size:0.92rem; line-height:1.8;">
+      <strong>Pro tip:</strong> Book flights 6–9 months ahead for summer travel. Consider arriving one day early to account for jet lag and potential delays — a pre-cruise hotel night in Barcelona or Athens is well worth the peace of mind, especially with six travelers. Look for Air Canada's direct seasonal routes to European hubs for the smoothest connections.
+    </p>
+  </div>
+
+  <!-- ═══════════ NOTES ═══════════ -->
+  <div class="notes">
+    <h4>Important Notes &amp; Disclaimers</h4>
+    <p>
+      All prices are estimates based on currently published rates as of April 2025 and are subject to change. Interior cabin prices are per person, double occupancy. A family of six would typically require 3 interior cabins (2 guests per cabin). Some cabins can accommodate 3–4 guests with pullman beds or sofa beds, which may reduce the number of cabins needed but often at a higher per-cabin rate. Third and fourth guest rates are typically lower than the first two guests. Children's pricing may vary by cruise line and age. Flight costs are estimates based on current average pricing for summer peak season from Vancouver; actual fares will vary. Shore excursion, onboard spending, and gratuity estimates are averages and your actual costs may be higher or lower. Travel insurance is strongly recommended for international travel. Always verify current pricing directly with the cruise line or a licensed travel agent before booking. Prices do not include passport/visa fees. Cruise line promotions (free drinks packages, onboard credits, kids-sail-free offers) may significantly reduce total costs — check for current offers when booking.
+    </p>
+  </div>
+</div>
+
+<div class="footer">
+  <p>Prepared April 2026 · Prices and availability subject to change · Consult a travel advisor for booking</p>
+</div>
+
+</body>
+</html>
