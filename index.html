@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>2027 Europe &amp; Asia Cruise Comparison — Family of Six</title>
+<title>2027 Europe &amp; Asia Cruise Comparison — Group of Six (4 Adults + 2 Seniors)</title>
 <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700;800&family=DM+Sans:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
 <style>
 :root {
@@ -561,6 +561,230 @@ tbody tr:hover { background: rgba(20,143,119,0.03); }
   .day-detail { display: none; }
   .itinerary-block, .cost-block { padding: 24px 18px; }
 }
+
+/* ===== PDF TOOLBAR ===== */
+.pdf-toolbar {
+  position: sticky;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  z-index: 1000;
+  background: var(--deep-blue);
+  border-top: 3px solid var(--gold);
+  padding: 16px 24px;
+  box-shadow: 0 -8px 32px rgba(10,22,40,0.25);
+}
+.pdf-toolbar-inner {
+  max-width: 1200px;
+  margin: 0 auto;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  flex-wrap: wrap;
+}
+.pdf-toolbar-text {
+  color: rgba(255,255,255,0.85);
+  font-size: 0.92rem;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+.pdf-icon { font-size: 1.4rem; }
+.pdf-btn {
+  background: var(--gradient-gold);
+  color: var(--navy);
+  border: none;
+  padding: 12px 28px;
+  border-radius: 10px;
+  font-family: 'DM Sans', sans-serif;
+  font-size: 0.95rem;
+  font-weight: 700;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  transition: transform 0.2s, box-shadow 0.2s;
+  white-space: nowrap;
+}
+.pdf-btn:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 4px 16px rgba(212,168,67,0.4);
+}
+.pdf-hint {
+  max-width: 1200px;
+  margin: 8px auto 0;
+  font-size: 0.75rem;
+  color: rgba(255,255,255,0.45);
+}
+
+/* ===== PRINT-ONLY ELEMENTS (hidden on screen) ===== */
+.print-only { display: none; }
+
+/* ═══════════════════════════════════════════════════ */
+/* ═══════════ @MEDIA PRINT — PDF EXPORT ═══════════ */
+/* ═══════════════════════════════════════════════════ */
+@media print {
+  /* Reset basics */
+  * { -webkit-print-color-adjust: exact !important; print-color-adjust: exact !important; color-adjust: exact !important; }
+  body { background: white !important; margin: 0; padding: 0; font-size: 9pt; line-height: 1.45; }
+
+  /* Hide screen-only elements */
+  .no-print { display: none !important; }
+
+  /* Show print-only elements */
+  .print-only { display: block !important; }
+
+  /* Print cover page */
+  .print-cover {
+    page-break-after: always;
+    text-align: center;
+    padding: 120px 40px 60px;
+  }
+  .print-cover h1 {
+    font-family: 'Playfair Display', serif;
+    font-size: 28pt;
+    color: var(--navy);
+    margin: 0 0 4px;
+    font-weight: 800;
+  }
+  .print-cover h2 {
+    font-family: 'Playfair Display', serif;
+    font-size: 14pt;
+    color: var(--ocean);
+    font-weight: 400;
+    margin: 0 0 16px;
+  }
+  .print-cover-rule {
+    width: 200px;
+    height: 3px;
+    background: var(--gold);
+    margin: 0 auto 24px;
+  }
+  .print-cover-rule-sm {
+    width: 120px;
+    height: 1.5px;
+    background: var(--teal);
+    margin: 12px auto 20px;
+  }
+  .print-cover-lines {
+    font-size: 9pt;
+    color: var(--gray-600);
+    margin: 6px 0;
+  }
+  .print-cover-foot {
+    margin-top: 50px;
+    font-size: 8pt;
+    color: var(--gray-400);
+  }
+  .print-cover-summary {
+    margin: 0 auto;
+    border-collapse: collapse;
+    width: 480px;
+    font-size: 8.5pt;
+  }
+  .print-cover-summary td {
+    padding: 5px 10px;
+    border-bottom: 0.5px solid var(--gray-200);
+    text-align: left;
+    color: var(--gray-600);
+  }
+  .print-cover-summary .pcs-header {
+    background: var(--deep-blue) !important;
+    color: var(--gold-light) !important;
+    font-weight: 700;
+    text-align: center;
+    font-size: 9pt;
+    letter-spacing: 1px;
+    padding: 8px;
+  }
+  .print-cover-summary .pcs-val {
+    font-weight: 700;
+    color: var(--ocean);
+  }
+
+  /* Hero becomes header on print */
+  .hero {
+    min-height: auto !important;
+    padding: 30px 24px 20px !important;
+    page-break-after: avoid;
+  }
+  .hero h1 { font-size: 20pt !important; }
+  .hero-sub { font-size: 9pt !important; }
+
+  /* Sections */
+  .section { padding: 20px 0; page-break-inside: avoid; }
+  .section h2 { font-size: 15pt; page-break-after: avoid; }
+
+  /* Cards grid */
+  .ships-grid { grid-template-columns: 1fr 1fr !important; gap: 12px !important; }
+  .ship-card { box-shadow: none; border: 0.5px solid var(--gray-200); page-break-inside: avoid; }
+  .ship-body { padding: 12px 16px 16px; }
+  .ship-name { font-size: 12pt; }
+  .ship-highlights li { font-size: 8pt; }
+
+  /* Review cards */
+  .review-grid { grid-template-columns: 1fr 1fr !important; gap: 12px !important; }
+  .review-card { box-shadow: none; border: 0.5px solid var(--gray-200); padding: 16px; page-break-inside: avoid; }
+  .review-ship { font-size: 11pt; }
+  .review-pros, .review-cons { font-size: 7.5pt; }
+
+  /* Tables */
+  .table-wrapper { overflow: visible; box-shadow: none; }
+  table { min-width: 0 !important; font-size: 7.5pt; }
+  thead th { padding: 6px 5px; font-size: 7pt; }
+  tbody td { padding: 5px 5px; font-size: 7.5pt; }
+
+  /* Itinerary */
+  .itinerary-block { box-shadow: none; border: 0.5px solid var(--gray-200); padding: 16px; page-break-inside: avoid; }
+  .day-row { grid-template-columns: 45px 1fr 1fr !important; }
+  .day-num { font-size: 9pt; padding: 6px 4px; }
+  .day-port { font-size: 8pt; padding: 6px 8px; }
+  .day-detail { font-size: 7.5pt; padding: 6px 8px; display: flex !important; }
+
+  /* Cost blocks */
+  .cost-block { border-radius: 8px; padding: 20px; page-break-inside: avoid; }
+  .cost-grid { grid-template-columns: 1fr 1fr !important; gap: 8px; }
+  .cost-item { padding: 10px; }
+  .cost-item-label { font-size: 7pt; }
+  .cost-item-value { font-size: 13pt; }
+  .cost-item-note { font-size: 7pt; }
+  .cost-total-value { font-size: 16pt; }
+
+  /* Recommendation */
+  .recommendation { box-shadow: none; page-break-inside: avoid; }
+
+  /* Notes */
+  .notes p { font-size: 7.5pt; }
+
+  /* Asia divider */
+  div[style*="gradient-asia"] { padding: 30px 24px !important; page-break-before: always; }
+
+  /* Famous ports grid */
+  .ships-grid[style*="280px"] { grid-template-columns: 1fr 1fr 1fr 1fr !important; }
+
+  /* Page break control */
+  .section + .section { page-break-before: auto; }
+  h2, h3 { page-break-after: avoid; }
+  .itinerary-block + .cost-block { page-break-before: always; }
+
+  /* Print header/footer via running elements */
+  @page {
+    size: A4 portrait;
+    margin: 15mm 12mm 18mm 12mm;
+    @top-center {
+      content: "2027 Europe & Asia Cruise Comparison — 4 Adults + 2 Seniors";
+      font-size: 7pt;
+      color: #9e9a92;
+    }
+    @bottom-center {
+      content: "Page " counter(page) " of " counter(pages) " — Prepared April 2026 — Prices subject to change";
+      font-size: 7pt;
+      color: #9e9a92;
+    }
+  }
+  @page :first { margin-top: 0; @top-center { content: none; } }
+}
 </style>
 </head>
 <body>
@@ -568,12 +792,12 @@ tbody tr:hover { background: rgba(20,143,119,0.03); }
 <!-- ═══════════ HERO ═══════════ -->
 <div class="hero">
   <div class="hero-label">2027 European Cruise Season</div>
-  <h1>The Definitive Cruise Comparison for Your <em>Family of Six</em></h1>
+  <h1>The Definitive Cruise Comparison for Your <em>Group of Six</em></h1>
   <p class="hero-sub">Royal Caribbean · Celebrity Cruises · Princess — featuring the newest ships sailing Italy, Greece, Northern Europe, plus Singapore, Thailand, Vietnam &amp; Asia's iconic ports. April through September 2027 and beyond, with travel logistics from Vancouver.</p>
   <div class="hero-badges">
     <span class="badge">🚢 3 Cruise Lines</span>
     <span class="badge">🗺️ Europe + Asia</span>
-    <span class="badge">👨‍👩‍👧‍👦 Family of 6</span>
+    <span class="badge">👥 4 Adults + 2 Seniors</span>
     <span class="badge">✈️ From Vancouver</span>
   </div>
 </div>
@@ -861,7 +1085,7 @@ tbody tr:hover { background: rgba(20,143,119,0.03); }
 <div class="section">
   <div class="section-label">Featured Itinerary</div>
   <h2>Recommended: Sun Princess 14-Night Grand Mediterranean</h2>
-  <p class="section-intro">This itinerary offers the best combination of Italy, Greece, and Turkey in a single sailing — ideal for a family of six wanting maximum destination variety at a competitive price point.</p>
+  <p class="section-intro">This itinerary offers the best combination of Italy, Greece, and Turkey in a single sailing — ideal for a group of six (4 adults + 2 seniors) wanting maximum destination variety at a competitive price point.</p>
 
   <div class="itinerary-block">
     <div class="itinerary-header">
@@ -951,19 +1175,19 @@ tbody tr:hover { background: rgba(20,143,119,0.03); }
 
   <!-- ═══════════ TOTAL COST BREAKDOWN ═══════════ -->
   <div class="cost-block">
-    <h3>Estimated Total Cost — Family of 6 (2 Cabins)</h3>
-    <p style="font-size:0.88rem; color:rgba(255,255,255,0.6); margin-bottom:24px;">Based on Sun Princess 14-night Grand Mediterranean, Aug 15, 2027, from Barcelona. Interior cabin pricing. <strong>Cabin 1:</strong> 4 guests (2 adults + 2 children, pullman beds). <strong>Cabin 2:</strong> 2 guests (double occupancy). 3rd/4th guest rates are typically 50–70% lower.</p>
+    <h3>Estimated Total Cost — 4 Adults + 2 Seniors (2 Cabins)</h3>
+    <p style="font-size:0.88rem; color:rgba(255,255,255,0.6); margin-bottom:24px;">Based on Sun Princess 14-night Grand Mediterranean, Aug 15, 2027, from Barcelona. Interior cabin pricing. <strong>Cabin 1:</strong> 2 adults (full fare) + 2 seniors as 3rd/4th guests (~65% of full fare). At least one senior qualifies the cabin for potential senior rate on select sailings. <strong>Cabin 2:</strong> 2 adults at standard double occupancy.</p>
 
     <div class="cost-grid">
       <div class="cost-item">
-        <div class="cost-item-label">Cabin 1 — 4 Guests (Interior)</div>
-        <div class="cost-item-value">$6,200</div>
-        <div class="cost-item-note">2 adults × ~$2,158 pp + 2 children (3rd/4th guest) × ~$942 pp. Taxes included.</div>
+        <div class="cost-item-label">Cabin 1 — 2 Adults + 2 Seniors (Interior)</div>
+        <div class="cost-item-value">$7,122</div>
+        <div class="cost-item-note">2 adults × $2,158 pp (full fare) + 2 seniors × $1,403 pp (3rd/4th guest rate, ~65%). Seniors as 3rd/4th guests qualify the cabin for potential senior rate on the full-fare guests too.</div>
       </div>
       <div class="cost-item">
-        <div class="cost-item-label">Cabin 2 — 2 Guests (Interior)</div>
+        <div class="cost-item-label">Cabin 2 — 2 Adults (Interior)</div>
         <div class="cost-item-value">$4,316</div>
-        <div class="cost-item-note">2 adults × ~$2,158 pp standard double occupancy rate.</div>
+        <div class="cost-item-note">2 adults × $2,158 pp standard double occupancy. No senior discount (no guest 55+ in this cabin).</div>
       </div>
       <div class="cost-item">
         <div class="cost-item-label">Flights: Vancouver → Barcelona RT</div>
@@ -992,22 +1216,22 @@ tbody tr:hover { background: rgba(20,143,119,0.03); }
       </div>
       <div class="cost-item">
         <div class="cost-item-label">Travel Insurance</div>
-        <div class="cost-item-value">$1,200</div>
-        <div class="cost-item-note">~$200 pp comprehensive travel/medical coverage</div>
+        <div class="cost-item-value">$1,500</div>
+        <div class="cost-item-note">~$250 pp — higher premium for seniors (comprehensive medical + evacuation coverage recommended)</div>
       </div>
     </div>
 
     <div class="cost-total">
-      <div class="cost-total-label">Estimated Grand Total (Family of 6 · 2 Cabins)</div>
-      <div class="cost-total-value">~$28,386 USD</div>
+      <div class="cost-total-label">Estimated Grand Total (4 Adults + 2 Seniors · 2 Cabins)</div>
+      <div class="cost-total-value">~$29,608 USD</div>
     </div>
-    <p style="font-size:0.78rem; color:rgba(255,255,255,0.45); margin-top:10px;">≈ $4,731 per person &nbsp;|&nbsp; ≈ $338 per person per day &nbsp;|&nbsp; Savings of ~$3,232 vs. 3 cabins</p>
+    <p style="font-size:0.78rem; color:rgba(255,255,255,0.45); margin-top:10px;">≈ $4,935 per person &nbsp;|&nbsp; ≈ $352 per person per day &nbsp;|&nbsp; Note: If Cabin 1 qualifies for senior rate, all 4 guests in that cabin may benefit</p>
   </div>
 
   <!-- ═══════════ ALTERNATIVE COST SCENARIOS ═══════════ -->
   <div class="itinerary-block" style="margin-top:32px;">
-    <h3 style="font-family:'Playfair Display',serif; font-size:1.3rem; margin-bottom:20px;">Alternative Cruise Cost Scenarios (Family of 6 · 2 Cabins: 4+2 Split)</h3>
-    <p style="color:var(--gray-600); font-size:0.82rem; margin-bottom:16px;">Cabin 1: 4 guests (2 adults + 2 at 3rd/4th guest rate ~45% of full fare). Cabin 2: 2 guests at standard double occupancy. Extras include hotels (2 rooms), excursions, gratuities, spending, insurance, and transfers.</p>
+    <h3 style="font-family:'Playfair Display',serif; font-size:1.3rem; margin-bottom:20px;">Alternative Cruise Cost Scenarios (4 Adults + 2 Seniors · 2 Cabins)</h3>
+    <p style="color:var(--gray-600); font-size:0.82rem; margin-bottom:16px;">Cabin 1: 2 adults + 2 seniors (seniors as 3rd/4th guest at ~65% of full fare; 1 senior qualifies cabin for potential senior rate). Cabin 2: 2 adults at standard double occupancy. Extras include hotels, excursions, gratuities, spending, insurance ($250 pp), and transfers.</p>
     <div class="table-wrapper" style="box-shadow:none;">
       <table style="min-width:700px;">
         <thead>
@@ -1022,52 +1246,52 @@ tbody tr:hover { background: rgba(20,143,119,0.03); }
         <tbody>
           <tr>
             <td><strong>RC Legend of the Seas</strong><br>7N W. Med from Barcelona</td>
-            <td class="price-cell">$11,800 – $14,200</td>
+            <td class="price-cell">$14,600 – $17,600</td>
             <td>$9,000</td>
-            <td>$4,400</td>
-            <td class="price-cell">$25,200 – $27,600</td>
+            <td>$4,700</td>
+            <td class="price-cell">$28,300 – $31,300</td>
           </tr>
           <tr>
             <td><strong>RC Rhapsody</strong><br>7N Greek Isles from Athens</td>
-            <td class="price-cell">$3,980 – $4,400</td>
+            <td class="price-cell">$4,920 – $5,430</td>
             <td>$9,600</td>
-            <td>$3,900</td>
-            <td class="price-cell">$17,480 – $17,900</td>
+            <td>$4,200</td>
+            <td class="price-cell">$18,720 – $19,230</td>
           </tr>
           <tr class="highlight-row">
             <td><strong>Celebrity Xcel</strong> 🏆<br>7N Italy &amp; Riviera from Barcelona</td>
-            <td class="price-cell">$6,920 – $9,000</td>
+            <td class="price-cell">$8,550 – $11,100</td>
             <td>$9,000</td>
-            <td>$4,200</td>
-            <td class="price-cell">$20,120 – $22,200</td>
+            <td>$4,500</td>
+            <td class="price-cell">$22,050 – $24,600</td>
           </tr>
           <tr>
             <td><strong>Celebrity Xcel</strong><br>8N Greece &amp; Turkey from Athens</td>
-            <td class="price-cell">$7,450 – $8,150</td>
+            <td class="price-cell">$9,200 – $10,060</td>
             <td>$9,600</td>
-            <td>$4,500</td>
-            <td class="price-cell">$21,550 – $22,250</td>
+            <td>$4,800</td>
+            <td class="price-cell">$23,600 – $24,460</td>
           </tr>
           <tr class="highlight-row">
             <td><strong>Sun Princess</strong> ★ Recommended<br>14N Grand Med from Barcelona</td>
-            <td class="price-cell">$10,516</td>
+            <td class="price-cell">$11,438</td>
             <td>$9,000</td>
-            <td>$8,870</td>
-            <td class="price-cell">$28,386</td>
+            <td>$9,170</td>
+            <td class="price-cell">$29,608</td>
           </tr>
           <tr>
             <td><strong>Sun Princess</strong><br>7N Greece &amp; Italy from Athens</td>
-            <td class="price-cell">$4,950 – $6,525</td>
+            <td class="price-cell">$6,110 – $8,050</td>
             <td>$9,600</td>
-            <td>$3,900</td>
-            <td class="price-cell">$18,450 – $20,025</td>
+            <td>$4,200</td>
+            <td class="price-cell">$19,910 – $21,850</td>
           </tr>
           <tr>
             <td><strong>RC Freedom</strong><br>7N Norwegian Fjords from Southampton</td>
-            <td class="price-cell">$4,275 – $5,850</td>
+            <td class="price-cell">$5,280 – $7,215</td>
             <td>$8,400</td>
-            <td>$3,900</td>
-            <td class="price-cell">$16,575 – $18,150</td>
+            <td>$4,200</td>
+            <td class="price-cell">$17,880 – $19,815</td>
           </tr>
         </tbody>
       </table>
@@ -1078,7 +1302,7 @@ tbody tr:hover { background: rgba(20,143,119,0.03); }
   <div class="recommendation">
     <div class="rec-title">Why the Sun Princess 14-Night Grand Mediterranean?</div>
     <div class="rec-body">
-      For a family of six departing from Vancouver, this itinerary offers the strongest combination of value, destination variety, and ship quality. You'll visit both Italy and Greece in a single sailing — including bucket-list ports like Santorini, Athens, Rome, and Cinque Terre — aboard Princess's newest and most technologically advanced ship. At roughly $2,158 per person for the cruise fare (interior cabin), it's significantly less expensive per night than the Legend of the Seas while still offering a modern, feature-rich ship experience. The 14-night duration means fewer embarkation hassles relative to days at sea, and Princess's complimentary dining, MedallionClass technology, and connected-room options make it exceptionally family-friendly. If budget is the primary concern, the RC Rhapsody 7-night Greek Isles from Athens is the most affordable option at approximately $19,000–$20,000 total for all six travelers. For the most luxurious ship experience and you're willing to pay a premium, the Legend of the Seas offers Royal Caribbean's newest onboard features, though at a significantly higher cruise-fare cost for a shorter voyage.
+      For a group of six (4 adults + 2 seniors) departing from Vancouver, this itinerary offers the strongest combination of value, destination variety, and ship quality. You'll visit both Italy and Greece in a single sailing — including bucket-list ports like Santorini, Athens, Rome, and Cinque Terre — aboard Princess's newest and most technologically advanced ship. At roughly $2,158 per person for the cruise fare (interior cabin), it's significantly less expensive per night than the Legend of the Seas while still offering a modern, feature-rich ship experience. The 14-night duration means fewer embarkation hassles relative to days at sea. Princess's MedallionClass technology, complimentary dining, and connected-room options make it excellent for multi-generational groups. Seniors (55+) should check for senior rates at booking — Royal Caribbean, Celebrity, and Princess all offer select senior discounts that could further reduce costs. Additionally, the AARP/AMAC partnership with Royal Caribbean and Princess offers up to 10% off gift cards and 5% off shore excursions. For seniors, comprehensive travel insurance with medical evacuation is strongly recommended, as Medicare typically does not cover international care. If budget is the primary concern, the RC Rhapsody 7-night Greek Isles from Athens is the most affordable option at approximately $18,200–$18,700 total for all six travelers.
     </div>
   </div>
 
@@ -1508,19 +1732,19 @@ tbody tr:hover { background: rgba(20,143,119,0.03); }
 
   <!-- ═══════════ ASIA COST BREAKDOWN ═══════════ -->
   <div class="cost-block" style="background: var(--gradient-asia);">
-    <h3>Estimated Total Cost — Family of 6 · 2 Cabins (Asia)</h3>
-    <p style="font-size:0.88rem; color:rgba(255,255,255,0.6); margin-bottom:24px;">Based on Quantum of the Seas 10-night Thailand &amp; Vietnam, late 2027, from Singapore. <strong>Cabin 1:</strong> 4 guests (2 adults + 2 at 3rd/4th guest rate). <strong>Cabin 2:</strong> 2 guests (double occupancy).</p>
+    <h3>Estimated Total Cost — 4 Adults + 2 Seniors · 2 Cabins (Asia)</h3>
+    <p style="font-size:0.88rem; color:rgba(255,255,255,0.6); margin-bottom:24px;">Based on Quantum of the Seas 10-night Thailand &amp; Vietnam, late 2027, from Singapore. <strong>Cabin 1:</strong> 2 adults (full fare) + 2 seniors as 3rd/4th guests (~65% of full fare). <strong>Cabin 2:</strong> 2 adults at standard double occupancy.</p>
 
     <div class="cost-grid">
       <div class="cost-item">
-        <div class="cost-item-label">Cabin 1 — 4 Guests (Interior)</div>
-        <div class="cost-item-value">$2,900</div>
-        <div class="cost-item-note">2 adults × ~$1,000 pp + 2 children (3rd/4th guest) × ~$450 pp.</div>
+        <div class="cost-item-label">Cabin 1 — 2 Adults + 2 Seniors (Interior)</div>
+        <div class="cost-item-value">$3,300</div>
+        <div class="cost-item-note">2 adults × $1,000 pp (full fare) + 2 seniors × $650 pp (3rd/4th guest rate, ~65%). Senior in cabin qualifies for potential senior rate.</div>
       </div>
       <div class="cost-item">
-        <div class="cost-item-label">Cabin 2 — 2 Guests (Interior)</div>
+        <div class="cost-item-label">Cabin 2 — 2 Adults (Interior)</div>
         <div class="cost-item-value">$2,000</div>
-        <div class="cost-item-note">2 adults × ~$1,000 pp standard double occupancy rate.</div>
+        <div class="cost-item-note">2 adults × $1,000 pp standard double occupancy. No senior discount (no guest 55+ in this cabin).</div>
       </div>
       <div class="cost-item">
         <div class="cost-item-label">Flights: Vancouver → Singapore RT</div>
@@ -1544,8 +1768,8 @@ tbody tr:hover { background: rgba(20,143,119,0.03); }
       </div>
       <div class="cost-item">
         <div class="cost-item-label">Onboard Spending + Insurance</div>
-        <div class="cost-item-value">$2,700</div>
-        <div class="cost-item-note">Specialty dining, drinks, spa, Wi-Fi ($1,500) + insurance ($1,200)</div>
+        <div class="cost-item-value">$3,000</div>
+        <div class="cost-item-note">Spending ($1,500) + insurance at $250 pp for senior-inclusive coverage ($1,500)</div>
       </div>
       <div class="cost-item">
         <div class="cost-item-label">Airport Transfers</div>
@@ -1555,16 +1779,16 @@ tbody tr:hover { background: rgba(20,143,119,0.03); }
     </div>
 
     <div class="cost-total">
-      <div class="cost-total-label">Estimated Grand Total (Family of 6 · 2 Cabins)</div>
-      <div class="cost-total-value">~$18,310 USD</div>
+      <div class="cost-total-label">Estimated Grand Total (4 Adults + 2 Seniors · 2 Cabins)</div>
+      <div class="cost-total-value">~$19,010 USD</div>
     </div>
-    <p style="font-size:0.78rem; color:rgba(255,255,255,0.45); margin-top:10px;">≈ $3,052 per person &nbsp;|&nbsp; ≈ $278 per person per day &nbsp;|&nbsp; Savings of ~$1,400 vs. 3 cabins</p>
+    <p style="font-size:0.78rem; color:rgba(255,255,255,0.45); margin-top:10px;">≈ $3,168 per person &nbsp;|&nbsp; ≈ $288 per person per day &nbsp;|&nbsp; Note: Cabin 1 may qualify for senior rate if available on this sailing</p>
   </div>
 
   <!-- ═══════════ ASIA ALTERNATIVE COSTS ═══════════ -->
   <div class="itinerary-block" style="margin-top:32px;">
-    <h3 style="font-family:'Playfair Display',serif; font-size:1.3rem; margin-bottom:20px;">Alternative Asia Cruise Cost Scenarios (Family of 6 · 2 Cabins: 4+2 Split)</h3>
-    <p style="color:var(--gray-600); font-size:0.82rem; margin-bottom:16px;">Cabin 1: 4 guests (2 adults + 2 at 3rd/4th guest rate ~45% of full fare). Cabin 2: 2 guests at standard rate. Extras include hotels (2 rooms), excursions, gratuities, spending, insurance, and transfers.</p>
+    <h3 style="font-family:'Playfair Display',serif; font-size:1.3rem; margin-bottom:20px;">Alternative Asia Cruise Cost Scenarios (4 Adults + 2 Seniors · 2 Cabins)</h3>
+    <p style="color:var(--gray-600); font-size:0.82rem; margin-bottom:16px;">Cabin 1: 2 adults + 2 seniors (seniors as 3rd/4th guest at ~65% of full fare). Cabin 2: 2 adults at standard double occupancy. Insurance at $250 pp for senior-inclusive medical/evacuation coverage.</p>
     <div class="table-wrapper" style="box-shadow:none;">
       <table style="min-width:700px;">
         <thead>
@@ -1579,45 +1803,45 @@ tbody tr:hover { background: rgba(20,143,119,0.03); }
         <tbody>
           <tr class="highlight-row">
             <td><strong>RC Quantum</strong> ★ Recommended<br>10N Thailand &amp; Vietnam from Singapore</td>
-            <td class="price-cell">$4,900</td>
+            <td class="price-cell">$5,300</td>
             <td>$6,600</td>
-            <td>$6,810</td>
-            <td class="price-cell">$18,310</td>
+            <td>$7,110</td>
+            <td class="price-cell">$19,010</td>
           </tr>
           <tr>
             <td><strong>RC Quantum</strong><br>5N Phuket &amp; Penang from Singapore</td>
-            <td class="price-cell">$2,790</td>
+            <td class="price-cell">$3,230</td>
             <td>$6,600</td>
-            <td>$4,100</td>
-            <td class="price-cell">$13,490</td>
+            <td>$4,400</td>
+            <td class="price-cell">$14,230</td>
           </tr>
           <tr>
             <td><strong>Celebrity Solstice</strong><br>12N Thailand &amp; Vietnam (SIN → HKG)</td>
-            <td class="price-cell">$8,660 – $10,800</td>
+            <td class="price-cell">$10,100 – $12,600</td>
             <td>$7,200</td>
-            <td>$7,500</td>
-            <td class="price-cell">$23,360 – $25,500</td>
+            <td>$7,800</td>
+            <td class="price-cell">$25,100 – $27,600</td>
           </tr>
           <tr>
             <td><strong>Celebrity Millennium</strong><br>11N SE Asia Explorer from Singapore</td>
-            <td class="price-cell">$6,300 – $8,100</td>
+            <td class="price-cell">$7,350 – $9,450</td>
             <td>$6,600</td>
-            <td>$6,900</td>
-            <td class="price-cell">$19,800 – $21,600</td>
+            <td>$7,200</td>
+            <td class="price-cell">$21,150 – $23,250</td>
           </tr>
           <tr class="highlight-row">
             <td><strong>Princess Diamond</strong><br>14N Malaysia, Thailand &amp; Vietnam</td>
-            <td class="price-cell">$6,200 – $8,280</td>
+            <td class="price-cell">$7,240 – $9,650</td>
             <td>$6,600</td>
-            <td>$8,100</td>
-            <td class="price-cell">$20,900 – $22,980</td>
+            <td>$8,400</td>
+            <td class="price-cell">$22,240 – $24,650</td>
           </tr>
           <tr>
             <td><strong>Princess Sapphire</strong><br>15N Singapore to Tokyo Grand</td>
-            <td class="price-cell">$8,280</td>
+            <td class="price-cell">$9,650</td>
             <td>$7,800</td>
-            <td>$8,700</td>
-            <td class="price-cell">$24,780</td>
+            <td>$9,000</td>
+            <td class="price-cell">$26,450</td>
           </tr>
         </tbody>
       </table>
@@ -1662,8 +1886,8 @@ tbody tr:hover { background: rgba(20,143,119,0.03); }
           </tr>
           <tr>
             <td><strong>Est. Total (6 pax, 2 cabins, 7–10N)</strong></td>
-            <td>$16,500 – $28,400</td>
-            <td>$13,500 – $23,400</td>
+            <td>$17,880 – $31,300</td>
+            <td>$14,230 – $25,100</td>
           </tr>
           <tr>
             <td><strong>Port Costs (food/transport)</strong></td>
@@ -1697,13 +1921,52 @@ tbody tr:hover { background: rgba(20,143,119,0.03); }
   <div class="notes">
     <h4>Important Notes &amp; Disclaimers</h4>
     <p>
-      All prices are estimates based on currently published rates as of April 2026 and are subject to change. <strong>All cost estimates assume a 2-cabin configuration:</strong> Cabin 1 holds 4 guests (2 adults at full fare + 2 children/guests at 3rd/4th guest rates, typically 40–55% of the full fare). Cabin 2 holds 2 guests at standard double occupancy rates. Not all interior cabins accommodate 4 guests — you must book a cabin with pullman beds or sofa beds. Hotel costs assume 2 rooms instead of 3. 3rd/4th guest rates vary by cruise line, sailing date, and cabin category — verify exact pricing when booking. Flight costs are estimates based on current average pricing from Vancouver; actual fares will vary. Shore excursion, onboard spending, and gratuity estimates are averages and your actual costs may be higher or lower. Travel insurance is strongly recommended for international travel. Always verify current pricing directly with the cruise line or a licensed travel agent before booking. Prices do not include passport/visa fees. For Asia travel, some destinations may require advance visas depending on your nationality — check requirements early. Cruise line promotions (free drinks packages, onboard credits, kids-sail-free offers) may significantly reduce total costs — check for current offers when booking. Celebrity's current offer of "75% off 2nd Guest + 3rd, 4th, & 5th Guests Sail FREE" on select Asia sailings could dramatically reduce cruise fares. Asian cruise seasons (Oct–Mar) and European seasons (Apr–Sep) do not overlap, making it possible to do both in the same year. Cruise Critic ratings and reviews are sourced from cruisecritic.com and reflect community and editor assessments as of early 2026.
+      All prices are estimates based on currently published rates as of April 2026 and are subject to change. <strong>All cost estimates assume a group of 4 adults + 2 seniors (age 55+), in a 2-cabin configuration:</strong> Cabin 1 holds 2 adults + 2 seniors (seniors as 3rd/4th guests at reduced rate, typically 60–75% of full fare; having at least one senior in the cabin may qualify all guests for senior rate on select sailings). Cabin 2 holds 2 adults at standard double occupancy (no senior discount since no guest is 55+ in this cabin).. <strong>Senior discount note:</strong> Royal Caribbean, Celebrity, and Princess all offer reduced rates for guests 55+ on selected sailings only — these are not guaranteed and vary by ship, date, and availability. At least one guest per cabin must be 55+ to qualify. AARP members can get up to 10% off Royal Caribbean gift cards, and AMAC members receive 5% off shore excursions with partner cruise lines. <strong>Insurance note:</strong> Travel insurance is estimated at $250 pp (higher than the standard $200 pp) to account for comprehensive medical and evacuation coverage recommended for seniors. Standard Medicare does not cover international medical care. Not all interior cabins accommodate 4 adults — you must book a cabin with pullman beds or sofa beds. Hotel costs assume 2 rooms. Flight costs are estimates from Vancouver; actual fares will vary. Shore excursion, onboard spending, and gratuity estimates are averages. Always verify current pricing directly with the cruise line or a licensed travel agent before booking. Prices do not include passport/visa fees. For Asia travel, some destinations may require advance visas depending on nationality. Cruise Critic ratings and reviews are sourced from cruisecritic.com as of early 2026.
     </p>
   </div>
 </div>
 
-<div class="footer">
+<!-- ═══════════ PDF / PRINT TOOLBAR ═══════════ -->
+<div class="pdf-toolbar no-print">
+  <div class="pdf-toolbar-inner">
+    <div class="pdf-toolbar-text">
+      <span class="pdf-icon">📄</span>
+      <span><strong>Download Report</strong> — Save this complete report as a PDF to your local drive</span>
+    </div>
+    <button class="pdf-btn" onclick="window.print()">
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+      Save as PDF
+    </button>
+  </div>
+  <p class="pdf-hint">Tip: In the print dialog, select <strong>"Save as PDF"</strong> as the destination. Set margins to <strong>"None"</strong> or <strong>"Minimum"</strong> and enable <strong>"Background graphics"</strong> for best results.</p>
+</div>
+
+<div class="footer no-print">
   <p>Prepared April 2026 · Prices and availability subject to change · Consult a travel advisor for booking</p>
+</div>
+
+<!-- ═══════════ PRINT-ONLY COVER PAGE ═══════════ -->
+<div class="print-cover print-only">
+  <div class="print-cover-rule"></div>
+  <h1>2027 CRUISE COMPARISON</h1>
+  <h2>Europe &amp; Asia — Complete Analysis</h2>
+  <div class="print-cover-rule-sm"></div>
+  <p class="print-cover-lines">Royal Caribbean &nbsp;|&nbsp; Celebrity Cruises &nbsp;|&nbsp; Princess Cruises</p>
+  <p class="print-cover-lines">Italy &nbsp;|&nbsp; Greece &nbsp;|&nbsp; Northern Europe &nbsp;|&nbsp; Singapore &nbsp;|&nbsp; Thailand &nbsp;|&nbsp; Vietnam</p>
+  <p class="print-cover-lines">4 Adults + 2 Seniors &nbsp;|&nbsp; 2-Cabin Configuration &nbsp;|&nbsp; Interior Cabins</p>
+  <p class="print-cover-lines">Departing from Vancouver, BC</p>
+  <div style="margin-top:40px;">
+    <table class="print-cover-summary">
+      <tr><td colspan="3" class="pcs-header">REPORT HIGHLIGHTS</td></tr>
+      <tr><td>Total Itineraries</td><td class="pcs-val">21</td><td>Europe + Asia</td></tr>
+      <tr><td>Ships Profiled</td><td class="pcs-val">6</td><td>Newest flagships</td></tr>
+      <tr><td>Cruise Critic Reviews</td><td class="pcs-val">6 ships</td><td>Awards + ratings</td></tr>
+      <tr><td>Cabin Model</td><td class="pcs-val">2 Cabins</td><td>Cab 1: 2 adults + 2 seniors | Cab 2: 2 adults</td></tr>
+      <tr><td>Europe Recommended</td><td class="pcs-val">~$29,608</td><td>Sun Princess 14N Grand Med</td></tr>
+      <tr><td>Asia Recommended</td><td class="pcs-val">~$19,010</td><td>RC Quantum 10N Thailand &amp; Vietnam</td></tr>
+    </table>
+  </div>
+  <p class="print-cover-foot">Prepared April 2026 &nbsp;|&nbsp; All prices in USD &nbsp;|&nbsp; Estimates only</p>
 </div>
 
 </body>
